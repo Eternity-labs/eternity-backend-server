@@ -7,7 +7,7 @@
 
 python3.7+
 
-**运行 SUIBE DID Data Manager**
+**运行 eternity_backend_server**
 
 ~~~bash
 git clone https://github.com/Eternity-labs/eternity-backend-server.git
