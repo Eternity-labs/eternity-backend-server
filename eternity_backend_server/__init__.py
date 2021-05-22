@@ -8,6 +8,8 @@ from flask_cors import CORS
 from eternity_backend_server.blueprints.public.public import public_bp
 from eternity_backend_server.blueprints.user.user import user_bp
 from eternity_backend_server.blueprints.admin.admin import admin_bp
+from eternity_backend_server.blueprints.datasprint.datasprint import datasprint_bp
+from eternity_backend_server.blueprints.dispatch.dispatch import dispatch_bp
 
 from eternity_backend_server.extensions import (
     bcrypt,
@@ -16,7 +18,6 @@ from eternity_backend_server.extensions import (
     db,
     debug_toolbar,
     flask_static_digest,
-    login_manager,
     migrate,
     bootstrap,
 )
@@ -39,6 +40,7 @@ def create_app(config_object="eternity_backend_server.settings"):
         # register_commands(app)
         configure_logger(app)
         g.index_add_counter = 0
+        # g.dispatch_list = dispatchList
     return app
 
 
@@ -48,7 +50,6 @@ def register_extensions(app):
     cache.init_app(app)
     db.init_app(app)
     csrf_protect.init_app(app)
-    login_manager.init_app(app)
     debug_toolbar.init_app(app)
     migrate.init_app(app, db)
     flask_static_digest.init_app(app)
@@ -64,6 +65,7 @@ def register_blueprints(app):
     app.register_blueprint(public_bp)
     app.register_blueprint(user_bp, url_prefix='/user')
     app.register_blueprint(admin_bp, url_prefix='/admin')
+    app.register_blueprint(dispatch_bp, url_prefix="/dispatch")
 
 def register_errorhandlers(app):
     """Register error handlers."""
