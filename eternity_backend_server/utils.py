@@ -14,6 +14,7 @@ import sha3
 from ecdsa import SigningKey, SECP256k1
 import os
 from eth_account import Account
+import ipfshttpclient
 
 def flash_errors(form, category="warning"):
     """Flash all errors for a form."""
@@ -117,23 +118,29 @@ def create_address_by_privkey(privkey):
     }
     return data
 
-# if __name__ == '__main__':
-#     priv_key = "18e14a7b6a307f426a94f8114701e7c8e774e7f9a47e2c2035db29a206321725"
-#     signning_key = SigningKey.from_string(bytes.fromhex(priv_key), curve=SECP256k1)
-#     # signning_key = SigningKey.generate(curve=SECP256k1)
-#     privkey = signning_key.to_string()
-#     print(privkey)
-#     verifing_key = signning_key.get_verifying_key()
-#     print(verifing_key)
-#     data = "hello, world"
-#     print(data)
-#     bytes_hashed = str.encode(data)
-#     print(bytes_hashed)
-#     # 签名
-#     signature = signning_key.sign(bytes_hashed, hashfunc=hashlib.sha256)
-#     print(signature)
-#     print(type(signature))
-#     print(signature.hex())
-#
-#     result = verifing_key.verify(signature=signature, data=bytes_hashed, hashfunc=hashlib.sha256)
-#     print(result)
+if __name__ == '__main__':
+    priv_key = "18e14a7b6a307f426a94f8114701e7c8e774e7f9a47e2c2035db29a206321725"
+    a = generate_addr()
+    print(a)
+    b = create_privkey()
+    print(b.hex())
+
+    print(priv_key)
+    # signning_key = SigningKey.from_string(bytes.fromhex(priv_key), curve=SECP256k1)
+    # # signning_key = SigningKey.generate(curve=SECP256k1)
+    # privkey = signning_key.to_string()
+    # print(privkey)
+    # verifing_key = signning_key.get_verifying_key()
+    # print(verifing_key)
+    # data = "hello, world"
+    # print(data)
+    # bytes_hashed = str.encode(data)
+    # print(bytes_hashed)
+    # # 签名
+    # signature = signning_key.sign(bytes_hashed, hashfunc=hashlib.sha256)
+    # print(signature)
+    # print(type(signature))
+    # print(signature.hex())
+    #
+    # result = verifing_key.verify(signature=signature, data=bytes_hashed, hashfunc=hashlib.sha256)
+    # print(result)

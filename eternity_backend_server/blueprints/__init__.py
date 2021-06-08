@@ -79,3 +79,58 @@
 # #     time.sleep(1)
 # if __name__ == '__main__':
 #     vote_thread()
+# from substrateinterface import SubstrateInterface
+#
+# substrate = SubstrateInterface(
+#     url="wss://service.eternitylab.cn",
+#     # ss58_format=2,
+#     # type_registry_preset='eternitylab'
+# )
+#
+# print(substrate.version)
+# print(substrate.chain)
+# print(substrate.block_id)
+# print(substrate.connect_websocket())
+# print(substrate.get_chain_head())
+
+
+# from substrateinterface import SubstrateInterface, Keypair
+# from substrateinterface.exceptions import SubstrateRequestException
+#
+# substrate = SubstrateInterface(
+#     url="wss://service.eternitylab.cn",
+#     ss58_format = 42,
+#     type_registry_preset='default'
+#     #wss://service.eternitylab.cn
+# )
+#
+# print(substrate.chain)
+# print(substrate.get_block_number)
+#
+# # Retrieve extrinsics in block
+# # result = substrate.get_block(block_hash=block_hash)
+# #keypair = Keypair.create_from_mnemonic('paper next author index wedding frost voice mention fetch waste march tilt')
+# account = "Alice"
+# account_name = "//"+account
+# print(account)
+# print(account_name)
+# keypair = Keypair.create_from_uri(account_name)
+# # 根据用户名创建私钥
+# print(keypair.ss58_address)
+# # 用户的地址
+# b3 = 1
+# call = substrate.compose_call(
+#     call_module='DispSigMoudle',
+#     call_function='transfer',
+#     call_params={
+#         'ipfshash':'1234peter-jim'
+#     }
+# )
+# extrinsic = substrate.create_signed_extrinsic(call=call, keypair=keypair)
+#
+# try:
+#     receipt = substrate.submit_extrinsic(extrinsic, wait_for_finalization=True)
+#     print("Extrinsic '{}' sent and included in block '{}'".format(receipt.extrinsic_hash, receipt.block_hash))
+#
+# except SubstrateRequestException as e:
+#     print("Failed to send: {}".format(e))
