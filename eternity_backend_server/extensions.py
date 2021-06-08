@@ -9,7 +9,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_static_digest import FlaskStaticDigest
 from flask_wtf.csrf import CSRFProtect
 from flask_bootstrap import Bootstrap
-from eternity_backend_server.blueprints.dispatch.server import DispatchQueue
 
 
 bcrypt = Bcrypt()
@@ -21,8 +20,6 @@ cache = Cache()
 debug_toolbar = DebugToolbarExtension()
 flask_static_digest = FlaskStaticDigest()
 bootstrap = Bootstrap()
-global dispatchList
-dispatchList = DispatchQueue()
 
 # global dispatchList
 # @login_manager.user_loader

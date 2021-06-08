@@ -3,3 +3,5 @@ REDIS_PORT=6379
 REDIS_DB=7
 REDIS_NAME="test"
 REDIS_PASSWORD="1234!@#$qwer"
+
+SUBSTRATE_URL="wss://service.eternitylab.cn"
