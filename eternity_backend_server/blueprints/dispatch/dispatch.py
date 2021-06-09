@@ -29,13 +29,14 @@ def upload_ipfshash(account, ipfshash):
         }
     )
     extrinsic = substrate.create_signed_extrinsic(call=call, keypair=keypair)
-
     try:
         receipt = substrate.submit_extrinsic(extrinsic, wait_for_finalization=True)
         # print("Extrinsic '{}' sent and included in block '{}'".format(receipt.extrinsic_hash, receipt.block_hash))
+        block_number = substrate.get_block_number(receipt.block_hash)
         return {
             "extrinsic_hash": receipt.extrinsic_hash,
             "block_hash": receipt.block_hash,
+            "block_number": block_number
         }
 
     except SubstrateRequestException as e:

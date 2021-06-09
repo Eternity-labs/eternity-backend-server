@@ -37,6 +37,13 @@ def upload():
     res = upload_data(data)
     return jsonify({"ipfshash": res})
 
+
+@csrf_protect.exempt
+@ipfs_bp.route("/uploadfile", methods=["POST"])
+def uploadfile():
+    return jsonify({})
+
+
 @csrf_protect.exempt
 @ipfs_bp.route("/getdatabyipfshash/<string:ipfshash>", methods=["GET", "POST"])
 def getdatabyipfshash(ipfshash):

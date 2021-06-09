@@ -11,6 +11,7 @@ from eternity_backend_server.blueprints.admin.admin import admin_bp
 from eternity_backend_server.blueprints.datasprint.datasprint import datasprint_bp
 from eternity_backend_server.blueprints.dispatch.dispatch_api import dispatch_bp
 from eternity_backend_server.blueprints.ipfs.ipfs_api import ipfs_bp
+from eternity_backend_server.blueprints.quantiza.quantiza_api import quantize_bp
 
 from eternity_backend_server.extensions import (
     bcrypt,
@@ -61,12 +62,12 @@ def configure_models():
 def register_blueprints(app):
     """Register Flask blueprints."""
 
+    app.register_blueprint(public_bp)
     app.register_blueprint(ipfs_bp, url_prefix='/ipfs')
     app.register_blueprint(dispatch_bp, url_prefix='/dispatch')
-    app.register_blueprint(public_bp)
     app.register_blueprint(user_bp, url_prefix='/user')
     app.register_blueprint(admin_bp, url_prefix='/admin')
-
+    app.register_blueprint(quantize_bp, url_prefix='/quantize')
 def register_errorhandlers(app):
     """Register error handlers."""
 
