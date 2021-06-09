@@ -65,5 +65,4 @@ def modellist():
             "AccountId": "wegqwgqwgwweqwe"
         },
     ]
-    print(data)
     return jsonify(data)
