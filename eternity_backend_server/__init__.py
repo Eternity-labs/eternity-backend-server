@@ -9,9 +9,12 @@ from eternity_backend_server.blueprints.public.public import public_bp
 from eternity_backend_server.blueprints.user.user import user_bp
 from eternity_backend_server.blueprints.admin.admin import admin_bp
 from eternity_backend_server.blueprints.datasprint.datasprint import datasprint_bp
-from eternity_backend_server.blueprints.dispatch.dispatch_api import dispatch_bp
 from eternity_backend_server.blueprints.ipfs.ipfs_api import ipfs_bp
 from eternity_backend_server.blueprints.quantiza.quantiza_api import quantize_bp
+from eternity_backend_server.blueprints.dispatch.dispatch_api import dispatch_bp
+from eternity_backend_server.blueprints.analiysis.analiysis_api import analiysis_bp
+from eternity_backend_server.blueprints.verify.verify_api import verify_bp
+from eternity_backend_server.blueprints.token.token_api import token_bp
 
 from eternity_backend_server.extensions import (
     bcrypt,
@@ -64,10 +67,14 @@ def register_blueprints(app):
 
     app.register_blueprint(public_bp)
     app.register_blueprint(ipfs_bp, url_prefix='/ipfs')
-    app.register_blueprint(dispatch_bp, url_prefix='/dispatch')
     app.register_blueprint(user_bp, url_prefix='/user')
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(quantize_bp, url_prefix='/quantize')
+    app.register_blueprint(dispatch_bp, url_prefix='/dispatch')
+    app.register_blueprint(analiysis_bp, url_prefix='/analiysis')
+    app.register_blueprint(verify_bp, url_prefix='/verify')
+    app.register_blueprint(token_bp, url_prefix='/token')
+
 def register_errorhandlers(app):
     """Register error handlers."""
 

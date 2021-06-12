@@ -66,3 +66,41 @@ def modellist():
         },
     ]
     return jsonify(data)
+
+@csrf_protect.exempt
+@quantize_bp.route("/substrate/listnodeinfo", methods=["GET"])
+def list_node_info():
+    data = [
+        {
+            "name":"Axxx",
+            "IP": "127.0.0.1:9000",
+            "Status": "online",
+            "AccountId": "0x123156184",
+        },
+        {
+            "name":"Bxxx",
+            "IP": "127.0.0.1:9000",
+            "Status": "offline",
+            "AccountId": "0x123156184",
+        },
+        {
+            "name":"Cxxx",
+            "IP":"127.0.0.1:9000",
+            "Status": "online",
+            "AccountId":"0x123156184",
+
+        },
+        {
+            "name":"Axxx",
+            "IP": "127.0.0.1:9000",
+            "Status": "online",
+            "AccountId": "0x123156184",
+        },
+        {
+            "name":"Axxx",
+            "IP": "127.0.0.1:9000",
+            "Status": "online",
+            "AccountId": "0x123156184",
+        },
+    ]
+    return jsonify(data)
