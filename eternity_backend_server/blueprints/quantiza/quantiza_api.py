@@ -104,3 +104,22 @@ def list_node_info():
         },
     ]
     return jsonify(data)
+
+@csrf_protect.exempt
+@quantize_bp.route("/worthtoken", methods=["GET"])
+def worthtoken():
+    data = [
+        {
+            "Name": "btc"
+        },
+        {
+            "Name": "eth"
+        },
+        {
+            "Name": "dot"
+        },
+        {
+            "Name": "enl"
+        },
+    ]
+    return jsonify(data)

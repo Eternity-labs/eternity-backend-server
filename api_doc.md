@@ -171,8 +171,6 @@ http://ip:port/quantize/modellist
 
 
 
-
-
 http://ip:port/user/accountinfo/<address>
 
 返回链上用户的信息.以及正在量化的节点信息
@@ -220,4 +218,31 @@ http://ip:port/user/accountinfo/<address>
 
 ]
 }
+```
+
+
+
+http://ip:port/quantize/worthtoken
+
+API功能:返回仍具备投资价值的token
+
+**Method GET**
+
+**Return Body**
+
+```json
+[
+    {
+        "Name": "btc"
+    },
+    {
+        "Name": "eth"
+    },
+    {
+        "Name": "dot"
+    },
+    {
+        "Name": "enl"
+    },
+]
 ```
