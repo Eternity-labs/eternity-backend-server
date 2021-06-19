@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_static_digest import FlaskStaticDigest
 from flask_wtf.csrf import CSRFProtect
 from flask_bootstrap import Bootstrap
+from flask_docs import ApiDoc
 
 
 bcrypt = Bcrypt()
@@ -20,6 +21,7 @@ cache = Cache()
 debug_toolbar = DebugToolbarExtension()
 flask_static_digest = FlaskStaticDigest()
 bootstrap = Bootstrap()
+apidoc = ApiDoc()
 
 # global dispatchList
 # @login_manager.user_loader

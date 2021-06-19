@@ -43,7 +43,7 @@ def upload_aes_model_file(key1, key2, src_dir):
     return all_result
 
 
-def get_ipfs_model_file(key1, key2, modelname, ipfshash):
+def get_ipfs_model_file(key1, key2, ipfshash):
     client = ipfshttpclient.connect()
     bytes_encrypt_content = client.cat(ipfshash)
     encrypt_content = str(bytes_encrypt_content, "utf-8")
@@ -53,19 +53,19 @@ def get_ipfs_model_file(key1, key2, modelname, ipfshash):
     result = {filename:content}
     return result
 
-if __name__ == '__main__':
-
-
-    KEY1 = "xxxxxxxxxxxxxxxxxx"
-    KEY2 = "xxxxxxxxxxxxxxxxxx"
-    src_dir = r'.\py_analysis'      # 源文件目录地址
-    result = upload_aes_model_file(KEY1, KEY2, src_dir)
-    print(result)
-
-    KEY1 = "xxxxxxxxxxxxxxxxxx"
-    KEY2 = "xxxxxxxxxxxxxxxxxx"
-    filename = "AR.py"
-    ipfshash = "QmXLrQ4dubrT3LJ5XtRhojygegRLecQ9AqpQDMbA9E7FXt"
-
-    result = get_ipfs_model_file(KEY1, KEY2, filename, ipfshash)
-    print(result)
+# if __name__ == '__main__':
+#
+#
+#     KEY1 = "xxxxxxxxxxxxxxxxxx"
+#     KEY2 = "xxxxxxxxxxxxxxxxxx"
+#     src_dir = r'.\py_analysis'      # 源文件目录地址
+#     result = upload_aes_model_file(KEY1, KEY2, src_dir)
+#     print(result)
+#
+#     KEY1 = "xxxxxxxxxxxxxxxxxx"
+#     KEY2 = "xxxxxxxxxxxxxxxxxx"
+#     filename = "AR.py"
+#     ipfshash = "QmXLrQ4dubrT3LJ5XtRhojygegRLecQ9AqpQDMbA9E7FXt"
+#
+#     result = get_ipfs_model_file(KEY1, KEY2, filename, ipfshash)
+#     print(result)

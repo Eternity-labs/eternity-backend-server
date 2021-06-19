@@ -32,7 +32,7 @@ class ValidationError(Exception):
 
 @csrf_protect.exempt
 @ipfs_bp.route("/upload", methods=["POST"])
-def upload():
+def upload_data_view():
     data = request.get_json()
     res = upload_data(data)
     return jsonify({"ipfshash": res})
@@ -46,12 +46,12 @@ def uploadfile():
 
 @csrf_protect.exempt
 @ipfs_bp.route("/getdatabyipfshash/<string:ipfshash>", methods=["GET", "POST"])
-def getdatabyipfshash(ipfshash):
+def get_data_by_ipfsHash_view(ipfshash):
     data_dict = get_data_by_ipfsHash(ipfshash)
     return jsonify({"data":data_dict, "ipfshash":ipfshash}), 200
 
 
 @csrf_protect.exempt
 @ipfs_bp.route("/checkcode/<string:ipfshash>", methods=["GET", "POST"])
-def checkcode(ipfshash):
+def check_code_view(ipfshash):
     return jsonify({"legal": check_code(ipfshash)}), 200

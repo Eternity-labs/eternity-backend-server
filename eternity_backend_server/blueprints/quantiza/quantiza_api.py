@@ -12,18 +12,20 @@ from flask import (
     g
 )
 
-from eternity_backend_server.blueprints.ipfs.ipfs import upload_data, get_data_by_ipfsHash, check_code
-import os
-from threading import Thread
-
-import threading
-import time
-import random
-
-import json
-
 from eternity_backend_server.extensions import db, csrf_protect
 import ipfshttpclient
+
+from substrateinterface import SubstrateInterface, Keypair
+from substrateinterface.exceptions import SubstrateRequestException
+
+import os
+import json
+from scalecodec.type_registry import load_type_registry_file
+from pprint import pprint
+
+from eternity_backend_server.config import TYPE_REGISTRY_JSON
+from eternity_backend_server.blueprints.quantiza.quantiza import model_list, search_node
+
 
 quantize_bp = Blueprint("quantize", __name__, static_folder="../static")
 
@@ -32,44 +34,23 @@ class ValidationError(Exception):
 
 @csrf_protect.exempt
 @quantize_bp.route("/modellist", methods=["GET"])
-def modellist():
-    data = [
-        {
-            "Name": "A",
-            "Ipfshash": "0x1234131",
-            "AccountId": "gegwegwetg23234"
-        },
-        {
-            "Name": "B",
-            "Ipfshash": "0x1234131",
-            "AccountId": "qwgqgwqgwert34t23"
-        },
-        {
-            "Name": "C",
-            "Ipfshash": "0x1234131",
-            "AccountId": "ereryert3414121"
-        },
-        {
-            "Name": "D",
-            "Ipfshash": "0x1234131",
-            "AccountId": "qwgqwgqwe12312qgddbh"
-        },
-        {
-            "Name": "E",
-            "Ipfshash": "0x1234131",
-            "AccountId": "1231qwfqwgqg14"
-        },
-        {
-            "Name": "F",
-            "Ipfshash": "0x1234131",
-            "AccountId": "wegqwgqwgwweqwe"
-        },
-    ]
-    return jsonify(data)
+def model_list_view():
+    result = model_list()
+    return jsonify(result)
+
+
+@csrf_protect.exempt
+@quantize_bp.route("/searchnode/<string:id_or_hash>", methods=["GET"])
+def search_node_view(id_or_hash):
+
+    result = search_node(id_or_hash)
+    return jsonify(result)
+
+
 
 @csrf_protect.exempt
 @quantize_bp.route("/substrate/listnodeinfo", methods=["GET"])
-def list_node_info():
+def list_node_info_view():
     data = [
         {
             "name":"Axxx",
@@ -97,7 +78,7 @@ def list_node_info():
             "AccountId": "0x123156184",
         },
         {
-            "name":"Axxx",
+            "name": "Axxx",
             "IP": "127.0.0.1:9000",
             "Status": "online",
             "AccountId": "0x123156184",
@@ -107,7 +88,7 @@ def list_node_info():
 
 @csrf_protect.exempt
 @quantize_bp.route("/worthtoken", methods=["GET"])
-def worthtoken():
+def worth_token_view():
     data = [
         {
             "Name": "btc"

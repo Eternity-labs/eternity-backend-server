@@ -5,3 +5,7 @@ REDIS_NAME="test"
 REDIS_PASSWORD="1234!@#$qwer"
 
 SUBSTRATE_URL="wss://service.eternitylab.cn"
+TYPE_REGISTRY_JSON="C:\\Users\\DELL\\Desktop\\21_6work\\eternity-backend-server\\eternity_backend_server\\type_registry\\eternity.json"
+
+DATABASE_LOCAL_URL="mysql://kies:1234qwer@47.98.100.48:3306/eternity"
+DATABASE_SERVER_URL="mysql://kies:1234qwer@47.98.100.48:3306/eternity"

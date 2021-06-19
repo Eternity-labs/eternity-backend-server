@@ -52,7 +52,7 @@ def get_ipfshash_by_blockhash_view(blockhash):
 
 @csrf_protect.exempt
 @dispatch_bp.route("/substrate/listnodeinfo", methods=["GET"])
-def list_node_info():
+def list_node_info_view():
     data = [
         {
             "name":"Axxx",
