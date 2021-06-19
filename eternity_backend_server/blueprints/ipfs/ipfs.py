@@ -28,7 +28,7 @@ def upload_data(data):
 def get_data_by_ipfsHash(ipfshash):
     client = ipfshttpclient.connect()
     data_bytes = client.cat(ipfshash)
-    data_str = str(data_bytes, encoding = "utf-8")
+    data_str = str(data_bytes, encoding="utf-8")
     data_dict = json.loads(data_str)
     return data_dict
 
