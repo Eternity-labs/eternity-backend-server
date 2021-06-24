@@ -27,7 +27,7 @@ from eternity_backend_server.config import TYPE_REGISTRY_JSON
 from eternity_backend_server.blueprints.quantiza.quantiza import model_list, search_node
 
 
-quantize_bp = Blueprint("quantize", __name__, static_folder="../static")
+quantize_bp = Blueprint("quantize", __name__)
 
 class ValidationError(Exception):
     pass
@@ -35,6 +35,37 @@ class ValidationError(Exception):
 @csrf_protect.exempt
 @quantize_bp.route("/modellist", methods=["GET"])
 def model_list_view():
+    """列举量化节点所有的存储信息
+
+        @@@
+        ### description
+        > finished
+        ### args
+        None
+
+        ### return
+        status code: **200**
+        ```json
+       [
+          {
+            "accountid": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
+            "blocknumber": 100,
+            "ipfshash": "youripfshash_data"
+          },
+          {
+            "accountid": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
+            "blocknumber": 14862,
+            "ipfshash": "youripfshash_data"
+          },
+          {
+            "accountid": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
+            "blocknumber": 14874,
+            "ipfshash": "youripfshash_data"
+          }
+        ]
+        ```
+        @@@
+    """
     result = model_list()
     return jsonify(result)
 
@@ -51,6 +82,41 @@ def search_node_view(id_or_hash):
 @csrf_protect.exempt
 @quantize_bp.route("/substrate/listnodeinfo", methods=["GET"])
 def list_node_info_view():
+    """列出量化节点所有节点的信息
+
+        @@@
+        ### description
+        > finished
+        ### args
+        None
+
+        ### return
+        status code: **200**
+        ```json
+        [
+            {
+                "name":"Axxx",
+                "IP": "127.0.0.1:9000",
+                "Status": "online",
+                "AccountId": "0x123156184",
+            },
+            {
+                "name":"Bxxx",
+                "IP": "127.0.0.1:9000",
+                "Status": "offline",
+                "AccountId": "0x123156184",
+            },
+            {
+                "name":"Cxxx",
+                "IP":"127.0.0.1:9000",
+                "Status": "online",
+                "AccountId":"0x123156184",
+
+            }
+        ]
+        ```
+        @@@
+    """
     data = [
         {
             "name":"Axxx",
@@ -89,6 +155,34 @@ def list_node_info_view():
 @csrf_protect.exempt
 @quantize_bp.route("/worthtoken", methods=["GET"])
 def worth_token_view():
+    """返回仍然具备投资价值的token
+
+        @@@
+        ### description
+        > finished
+        ### args
+        None
+
+        ### return
+        status code: **200**
+        ```json
+        [
+            {
+                "Name": "btc"
+            },
+            {
+                "Name": "eth"
+            },
+            {
+                "Name": "dot"
+            },
+            {
+                "Name": "enl"
+            },
+        ]
+        ```
+        @@@
+    """
     data = [
         {
             "Name": "btc"

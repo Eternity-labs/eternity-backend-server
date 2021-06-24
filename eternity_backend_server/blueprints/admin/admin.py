@@ -13,4 +13,4 @@ from flask_login import login_required, login_user, logout_user, current_user
 from eternity_backend_server.utils import flash_errors, redirect_back
 from eternity_backend_server.extensions import db
 
-admin_bp = Blueprint("admin", __name__, static_folder="../static")
+admin_bp = Blueprint("admin", __name__)
