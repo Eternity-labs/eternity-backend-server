@@ -4,7 +4,7 @@ import logging
 import sys
 
 from concurrent.futures import ThreadPoolExecutor
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, jsonify
 from flask_cors import CORS
 from eternity_backend_server.blueprints.public.public import public_bp
 from eternity_backend_server.blueprints.user.user import user_bp
@@ -93,8 +93,24 @@ def register_errorhandlers(app):
         error_code = getattr(error, "code", 500)
         return render_template("errors/{}.html".format(str(error_code))), error_code
 
-    for errcode in [401, 404, 500]:
-        app.errorhandler(errcode)(render_error)
+    def render_error_not_found(error):
+        error_code = getattr(error, "code", 500)
+        return jsonify({
+            "status": error_code,
+            "result": "page not found.",
+        }), error_code
+
+    def render_error_server(error):
+        error_code = getattr(error, "code", 500)
+        return jsonify({
+            "status": error_code,
+            "result": "Sorry, something went wrong on our system. Don't panic, we are fixing it! Please try again later.",
+        }), error_code
+
+    app.errorhandler(400)(render_error_not_found)
+    app.errorhandler(401)(render_error_not_found)
+    app.errorhandler(404)(render_error_not_found)
+    app.errorhandler(500)(render_error_server)
 
 
 def register_shellcontext(app):

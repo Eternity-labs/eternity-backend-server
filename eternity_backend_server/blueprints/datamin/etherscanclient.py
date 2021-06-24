@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from lxml import etree
 import time
 from eternity_backend_server.blueprints.datamin.detail_function import token_parse
-
+import json
 
 
 class etherscanclient(object):
@@ -22,19 +22,19 @@ class etherscanclient(object):
         '''
         https://api-cn.etherscan.com/api?module=stats&action=tokensupply&contractaddress=0x57d90b64a1a57749b0f932f1a3395792e12e7055&apikey=YourApiKeyToken
         '''
-        return datamin_contractaddress(self.token, self.apikey)
+        return json.loads(datamin_contractaddress(self.token, self.apikey))
 
     def tokencontractaddress(self):
         '''
         https://api-cn.etherscan.com/api?module=account&action=tokenbalance&contractaddress=0x57d90b64a1a57749b0f932f1a3395792e12e7055&address=0xe04f27eb70e025b78871a2ad7eabe85e61212761&tag=latest&apikey=YourApiKeyToken
         '''
-        return datamin_tokencontractaddress(self.token, self.apikey)
+        return json.loads(datamin_tokencontractaddress(self.token, self.apikey))
 
     def token_info(self):
         '''
         https://cn.etherscan.com/token/0x358AA737e033F34df7c54306960a38d09AaBd523
         '''
-        return datamin_token_info(self.token)
+        return json.loads(datamin_token_info(self.token))
 
     def token_transfers(self):
         '''

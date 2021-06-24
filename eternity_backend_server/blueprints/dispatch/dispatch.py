@@ -3,9 +3,15 @@
 from eternity_backend_server.config import SUBSTRATE_URL
 
 from eternity_backend_server.blueprints.ipfs.ipfs import check_code
-import json
+
 from substrateinterface import SubstrateInterface, Keypair
 from substrateinterface.exceptions import SubstrateRequestException
+
+import os
+import json
+
+from scalecodec.type_registry import load_type_registry_file
+from eternity_backend_server.config import TYPE_REGISTRY_JSON
 
 def upload_ipfshash(account, ipfshash):
     checkcode = check_code(ipfshash)
@@ -45,3 +51,60 @@ def upload_ipfshash(account, ipfshash):
         #     "result": "Failed to send: {}".format(e),
         #     "code": "404"
         # }
+
+def dispatch_model_list():
+    custom_type_registry = load_type_registry_file(TYPE_REGISTRY_JSON)
+    substrate = SubstrateInterface(
+        url="wss://service.eternitylab.cn",
+        ss58_format=42,
+        type_registry_preset='substrate-node-template',
+        type_registry=custom_type_registry
+    )
+    result = substrate.query_map('DispSigMoudle', 'DispatchSig')
+    return_res = []
+    for blocknumber, dispatchsig in result:
+        res = {}
+        res["blocknumber"] = int(str(blocknumber))
+        res["ipfshash"] = str(dispatchsig.value[0])
+        res["accountid"] = str(dispatchsig.value[1])
+        return_res.append(res)
+
+    return return_res
+
+def dispatch_search_node(account, id_or_hash):
+    custom_type_registry = load_type_registry_file(TYPE_REGISTRY_JSON)
+    substrate = SubstrateInterface(
+        url="wss://service.eternitylab.cn",
+        ss58_format=42,
+        type_registry_preset='substrate-node-template',
+        type_registry=custom_type_registry
+    )
+
+
+    account_name = "//"+account
+    keypair = Keypair.create_from_uri(account_name)
+
+    try:
+        _id = int(id_or_hash)
+        _hash = substrate.get_block_hash(_id)
+    except:
+        _id = substrate.get_block_number(id_or_hash)
+        _hash = id_or_hash
+
+    result = substrate.query(
+        module='DispSigMoudle',
+        storage_function='DispatchSig',
+        params=[_id]
+    )
+    # pprint(result.value)
+    return_res = {}
+
+    return_res["blocknumber"] = _id
+    return_res["blockhash"] = _hash
+    return_res["ipfshash"] = str(result.value[0])
+
+    if keypair.ss58_address != str(result.value[1]):
+        raise ValueError("Bad User!")
+
+    return_res["accountid"] = str(result.value[1])
+    return return_res
