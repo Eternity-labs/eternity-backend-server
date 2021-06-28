@@ -45,7 +45,7 @@ class etherscanclient(object):
 
 def datamin_token_info(
     contractaddress:str = "0x358AA737e033F34df7c54306960a38d09AaBd523"
-    ):
+    )->str:
     """
     抓取token当中的部分内容
     """
@@ -53,7 +53,7 @@ def datamin_token_info(
     url = 'https://cn.etherscan.com/token/{}'.format(contractaddress)
     response = requests.get(url=url, headers=headers)
     base_info = token_parse.overview_info_parse(response.text)
-    return base_info
+    return str(base_info)
 
 def datamin_token_transfers(
     contractaddress:str = "0x358AA737e033F34df7c54306960a38d09AaBd523"
