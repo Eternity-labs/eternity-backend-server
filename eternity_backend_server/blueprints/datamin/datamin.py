@@ -23,7 +23,6 @@ from bs4 import BeautifulSoup
 from lxml import etree
 import time
 
-
 from eternity_backend_server.blueprints.datamin.detail_function import token_parse
 
 def bishijieclient():
@@ -33,9 +32,8 @@ def bishijieclient():
     headers = settings.HEADERS_BISHIJIE
     url = 'https://www.bishijie.com/kuaixun'
     response = requests.get(url=url, headers=headers)
-    result_info = bishijie_parse.bishijie_info_parse(response.text)
+    result_info = bishijie_parse.bishijie_info_parse(url, response.text)
     return result_info
-
 
 def _update_data_loop(app):
     with app.app_context():
@@ -61,3 +59,8 @@ def time_():
         print(a)
         time.sleep(1)
         a+=1
+
+if __name__ == '__main__':
+
+    a  = bishijieclient()
+    print(a)
