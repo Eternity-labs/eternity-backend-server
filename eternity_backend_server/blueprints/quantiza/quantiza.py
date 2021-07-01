@@ -3,6 +3,7 @@ from flask import (
     Blueprint,
     current_app,
     flash,
+    Flask,
     redirect,
     render_template,
     request,
@@ -11,6 +12,8 @@ from flask import (
     jsonify,
     g
 )
+
+
 
 from eternity_backend_server.extensions import db, csrf_protect
 import ipfshttpclient
@@ -22,7 +25,7 @@ import os
 import json
 from scalecodec.type_registry import load_type_registry_file
 from pprint import pprint
-
+import requests
 from eternity_backend_server.config import TYPE_REGISTRY_JSON
 
 def model_list():
@@ -43,9 +46,6 @@ def model_list():
         return_res.append(res)
 
     return return_res
-
-
-
 
 
 def search_node(id_or_hash):
@@ -78,3 +78,11 @@ def search_node(id_or_hash):
 
     return return_res
 
+def add_node(port):
+    '''
+    :param port:
+    :return:
+    '''
+    #矿工通过add_node来启动节点
+
+    #

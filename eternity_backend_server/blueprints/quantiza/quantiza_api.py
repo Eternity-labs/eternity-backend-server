@@ -198,3 +198,4 @@ def worth_token_view():
         },
     ]
     return jsonify(data)
+

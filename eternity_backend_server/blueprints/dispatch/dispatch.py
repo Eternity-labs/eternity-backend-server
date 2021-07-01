@@ -9,6 +9,8 @@ from substrateinterface.exceptions import SubstrateRequestException
 
 import os
 import json
+import time
+import requests
 
 from scalecodec.type_registry import load_type_registry_file
 from eternity_backend_server.config import TYPE_REGISTRY_JSON
@@ -108,3 +110,39 @@ def dispatch_search_node(account, id_or_hash):
 
     return_res["accountid"] = str(result.value[1])
     return return_res
+
+def cheack_contract():
+    """
+    devloper:@peter-jim
+    Check if the contract is quantified
+    :return:
+    """
+    while(1):
+      #cheack
+      if 1:
+          ping_node()
+
+      time.sleep(1000)
+
+def send_address_to_contract(address):
+    return ping_node()
+
+def ping_node():
+    '''
+    devloper:@peter-jim
+    ping quant node status,and update the dispatch table
+    :return: address
+    '''
+    #step1 get table from substrate
+
+
+    #step2 ping node
+    for i in  range(1,len):
+        response =requests.get('url')
+        #step3 cheack legal node
+        if response.text == 'online':
+            pass
+
+    #step return address to dispatch,after dispatch send address to contract
+    #this is heco address,Be careful
+    return '0xbacd15010678bd31197f6eb6b971ab7154674d48'
