@@ -41,6 +41,13 @@ class etherscanclient(object):
         https://cn.etherscan.com/token/generic-tokentxns2?contractAddress=0x358AA737e033F34df7c54306960a38d09AaBd523&mode=&sid=4632ba89ca08b23ff97da5d8c6f47cb2&m=normal&p=2
         '''
         return datamin_token_transfers(self.token)
+        
+    def datamin_polkadot_subscan(self):
+        '''
+        https://polkadot.subscan.io/api/scan/daily
+        POST请求
+        '''
+        return datamin_polkadot()
 
 
 def datamin_token_info(
@@ -129,6 +136,30 @@ def datamin_tokencontractaddress(
         response = requests.get('https://api-cn.etherscan.com/api', headers=headers, params=params)
         return response.text
 
+    except Exception as e:
+        logging.warning('请求失败，失败类型为：%s'%e)
+        return '请求失败，失败类型为：%s'%e
+
+def datamin_polkadot(
+    start_time:str = '2020-07-18',
+    end_time:str = '2021-07-12',
+    ):
+    '''
+    可以更改参数用于抓取其他数据
+    '''
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.59',
+        'content-type': 'application/json;charset=UTF-8',
+        'cookie': 'local_language=zh-CN',
+    }
+    data = {"start":start_time,
+            "end":end_time,
+            "format":"day",
+            "category":"Unbond"}
+    data = json.dumps(data)
+    try:
+        response = requests.post('https://polkadot.subscan.io/api/scan/daily', headers=headers, data=data)
+        return json.loads(response.text).get('data',{}).get('list',[])
     except Exception as e:
         logging.warning('请求失败，失败类型为：%s'%e)
         return '请求失败，失败类型为：%s'%e
