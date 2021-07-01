@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from lxml import etree
 import json
+import re
 
 # xpath需要定期更换，否则数据抓取不全
 
