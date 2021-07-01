@@ -21,7 +21,7 @@ def  bishijie_info_parse(parse_str:str = ''):
         result_info_list.append({"Title":title,
                                  "Description":description,
                                  "look_count_true":look_count_true,
-                                 "look_count_flase":look_count_flase,
+                                 "look_count_false":look_count_flase,
                                  "Url":url})
     result_info = {
         "status":True,
