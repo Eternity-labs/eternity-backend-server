@@ -1,5 +1,5 @@
 import requests
-from eternity_backend_server.blueprints.datamin.detail_function import bishijie_parse
+from eternity_backend_server.blueprints.datamin.detail_function.bishijie_parse import bishijie_info_parse
 from flask import Flask
 from time import sleep
 from concurrent.futures import ThreadPoolExecutor
@@ -32,7 +32,7 @@ def bishijieclient():
     headers = settings.HEADERS_BISHIJIE
     url = 'https://www.bishijie.com/kuaixun'
     response = requests.get(url=url, headers=headers)
-    result_info = bishijie_parse.bishijie_info_parse(url, response.text)
+    result_info = bishijie_info_parse(url, response.text)
     return result_info
 
 def _update_data_loop(app):
@@ -61,6 +61,5 @@ def time_():
         a+=1
 
 if __name__ == '__main__':
-
-    a  = bishijieclient()
+    a = bishijieclient()
     print(a)

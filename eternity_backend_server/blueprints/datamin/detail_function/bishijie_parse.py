@@ -17,14 +17,14 @@ def  bishijie_info_parse(URL, parse_str:str = ''):
         title = info.find('h3').text.replace('\n','').replace(' ','')
         content = info.find('div',class_='h63').text.replace('\n','').replace(' ','')
 
-        url = URL + info.find('a')["href"]
+        url = URL + "/" + info.find('a')["href"].split("/")[2]
         look_count_true = info.find('div',class_='bull').text.replace('\n','').replace(' ','')
         look_count_flase = info.find('div',class_='bear').text.replace('\n','').replace(' ','')
         result_info_list.append({"Title":title,
                                  "Description":content,
                                  "Url": url,
                                  "look_count_true":look_count_true,
-                                 "look_count_flase":look_count_flase})
+                                 "look_count_false":look_count_flase})
     result_info = {
         "status":True,
         "info":"bishijie Fetch results",

@@ -17,6 +17,8 @@ from eternity_backend_server.blueprints.verify.verify_api import verify_bp
 from eternity_backend_server.blueprints.token.token_api import token_bp
 from eternity_backend_server.blueprints.datamin.datamin_api import datamin_bp
 
+from eternity_backend_server.blueprints.dex.mxc.mxc_api import dexmxc_bp
+
 from eternity_backend_server.extensions import (
     bcrypt,
     cache,
@@ -83,6 +85,7 @@ def register_blueprints(app):
     app.register_blueprint(verify_bp, url_prefix='/verify')
     app.register_blueprint(token_bp, url_prefix='/token')
     app.register_blueprint(datamin_bp, url_prefix='/datamin')
+    app.register_blueprint(dexmxc_bp, url_prefix='/mxc')
 
 def register_errorhandlers(app):
     """Register error handlers."""
