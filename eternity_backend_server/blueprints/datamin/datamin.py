@@ -32,7 +32,7 @@ def bishijieclient():
     headers = settings.HEADERS_BISHIJIE
     url = 'https://www.bishijie.com/kuaixun'
     response = requests.get(url=url, headers=headers)
-    result_info = bishijie_info_parse(url, response.text)
+    result_info = bishijie_info_parse(response.text)
     return result_info
 
 def _update_data_loop(app):
