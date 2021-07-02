@@ -17,6 +17,8 @@ from eternity_backend_server.blueprints.dispatch.dispatch import upload_ipfshash
 from substrateinterface import SubstrateInterface, Keypair
 from substrateinterface.exceptions import SubstrateRequestException
 
+import requests
+
 dispatch_bp = Blueprint("dispatch", __name__)
 
 class ValidationError(Exception):
@@ -217,3 +219,19 @@ def list_node_info_view():
         },
     ]
     return jsonify(data)
+
+
+@csrf_protect.exempt
+@dispatch_bp.route("/node/islive", methods=["GET"])
+def isLive():
+    data = request.get_json()
+    url = data.get("url")
+    r = requests.get(url)
+    if r.status_code == 200:
+        return jsonify({
+            "result": "is_alive"
+        }), 201
+    else:
+        return jsonify({
+            "result": "not_alive"
+        }), 400
