@@ -86,3 +86,27 @@ def add_node(port):
     #矿工通过add_node来启动节点
 
     #
+
+def list_node():
+    custom_type_registry = load_type_registry_file(TYPE_REGISTRY_JSON)
+    substrate = SubstrateInterface(
+        url="wss://service.eternitylab.cn",
+        ss58_format=42,
+        type_registry_preset='substrate-node-template',
+        type_registry=custom_type_registry
+    )
+    result = substrate.query_map('QuanStakeMoudle', 'Nodes')
+    return_res = []
+    for accountid, nodemsg in result:
+        res = {}
+        res["accountid"] = str(accountid)
+        nodemsg_str = str(nodemsg).replace('\'', "\"")
+        nodemsg_dict = json.loads(nodemsg_str)
+        res["model"] = nodemsg_dict["model"]
+
+        res["address"] = nodemsg_dict["address"]
+        res["dexaddress"] = nodemsg_dict["dexaddress"]
+        res["stake"] = nodemsg_dict["stake"]
+        res["ipport"] = nodemsg_dict["ipport"]
+        return_res.append(res)
+    return return_res
