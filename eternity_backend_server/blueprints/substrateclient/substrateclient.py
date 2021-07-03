@@ -97,7 +97,7 @@ def QuanStakeMoudle_Nodes():
     return return_res
 
 
-def upload_ipfshash(account, ipfshash):
+def DispSigMoudle_transfer(account, ipfshash):
     # checkcode = check_code(ipfshash)
     # if checkcode == False:
     #     raise ValueError("Failed to send: {}".format("This [ipfshash] is illegal! Please enter the correct [ipfshash]."))
