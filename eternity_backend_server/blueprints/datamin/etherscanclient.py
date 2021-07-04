@@ -163,3 +163,47 @@ def datamin_polkadot(
     except Exception as e:
         logging.warning('请求失败，失败类型为：%s'%e)
         return '请求失败，失败类型为：%s'%e
+
+class requests_reloads(object):
+    """
+    更改请求的方式，让请求更加稳定
+    """
+    def __init__(self, datamin_info):
+        """
+        获取爬虫相关字典数据
+        """
+        self.datamin_info = datamin_info
+
+    def ip_info(self,datamin_info):
+        return datamin_info
+
+    def headers_info(self, parameter_list):
+        """
+        docstring
+        """
+        return datamin_info
+        
+    def cookies_info(self, parameter_list):
+        """
+        docstring
+        """
+        return datamin_info
+        
+    def retry_info(self, parameter_list):
+        """
+        重试包含重试次数以及重试爬虫信息是否更改，IP是否替换
+        """
+        return datamin_info
+    
+    def request_method(self, parameter_list):
+        """
+        docstring
+        """
+        headers = parameter_list.get('method','')
+        data = parameter_list.get('data','')
+        if parameter_list.get('method','') == "POST":
+            result_info = requests.post('https://polkadot.subscan.io/api/scan/daily', headers=headers, data=data)
+            return result_info.text
+        else:
+            result_info = requests.get('https://polkadot.subscan.io/api/scan/daily', headers=headers)
+            return result_info.text
