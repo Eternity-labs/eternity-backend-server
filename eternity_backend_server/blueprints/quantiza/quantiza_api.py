@@ -24,7 +24,7 @@ from scalecodec.type_registry import load_type_registry_file
 from pprint import pprint
 
 from eternity_backend_server.config import TYPE_REGISTRY_JSON
-from eternity_backend_server.blueprints.quantiza.quantiza import model_list, search_node
+from eternity_backend_server.blueprints.quantiza.quantiza import model_list, search_node, list_node
 
 
 quantize_bp = Blueprint("quantize", __name__)
@@ -197,4 +197,35 @@ def worth_token_view():
             "Name": "enl"
         },
     ]
+    return jsonify(data)
+
+
+@csrf_protect.exempt
+@quantize_bp.route("/substrate/listnode", methods=["GET"])
+def list_node_view():
+    """列出量化节点安全节点
+
+        @@@
+        ### description
+        > finished
+        ### args
+        None
+
+        ### return
+        status code: **200**
+        ```json
+        [
+            {
+                'accountid': '5HjY6wPoN6YXvp3Wew6uNRzbZEtTeoKrrKazALkPikVRdEAj',
+                'model': 'mxc_post_token_7day',
+                'address': '5HjY6wPoN6YXvp3Wew6uNRzbZEtTeoKrrKazALkPikVRdEAj',
+                'dexaddress': '0xbacd15010678bd31197f6eb6b971ab7154674d48',
+                'stake': 0,
+                'ipport': '0.0.0.0:4040'
+            }
+        ]
+        ```
+        @@@
+    """
+    data = list_node()
     return jsonify(data)

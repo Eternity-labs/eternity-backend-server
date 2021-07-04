@@ -78,6 +78,69 @@
       ]
     },
     "<T as frame_system::Config>::BlockNumber": "u32",
+    "Manager": "AccountId",
+    "AnalyCount": "u32",
+    "QuanIndex": "u32",
+    "benificiary": "AccountId",
+    "end": "BlockNumber",
+    "minstake": "Balance",
+    "maxauthoritynum": "u32",
+    "status": "bool",
+    "model": "Vec<u8>",
+    "address": "AccountId",
+    "dexaddress": "Vec<u8>",
+    "stake": "Balance",
+    "ipport": "Vec<u8>",
+    "QuanInfoOf": {
+      "type": "struct",
+      "type_mapping": [
+        [
+          "benificiary",
+          "AccountId"
+        ],
+        [
+          "end",
+          "BlockNumber"
+        ],
+        [
+          "minstake",
+          "Balance"
+        ],
+        [
+          "maxauthoritynum",
+          "u32"
+        ],
+        [
+          "status",
+          "bool"
+        ]
+      ]
+    },
+    "QuanNodeOf": {
+      "type": "struct",
+      "type_mapping": [
+        [
+          "model",
+          "Vec<u8>"
+        ],
+        [
+          "address",
+          "AccountId"
+        ],
+        [
+          "dexaddress",
+          "Vec<u8>"
+        ],
+        [
+          "stake",
+          "Balance"
+        ],
+        [
+          "ipport",
+          "Vec<u8>"
+        ]
+      ]
+    },
     "PerDispatchClassU32": {
       "type": "struct",
       "type_mapping": [

@@ -1,22 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import (
-    Blueprint,
-    current_app,
-    flash,
-    Flask,
-    redirect,
-    render_template,
-    request,
-    url_for,
-    abort,
-    jsonify,
-    g
-)
 
-
-
-from eternity_backend_server.extensions import db, csrf_protect
-import ipfshttpclient
 
 from substrateinterface import SubstrateInterface, Keypair
 from substrateinterface.exceptions import SubstrateRequestException
@@ -27,8 +10,10 @@ from scalecodec.type_registry import load_type_registry_file
 from pprint import pprint
 import requests
 from eternity_backend_server.config import TYPE_REGISTRY_JSON
+from eternity_backend_server.blueprints.ipfs.ipfs import check_code
 
-def model_list():
+def DispSigMoudle_DispatchSig():
+    # 列出存储信息
     custom_type_registry = load_type_registry_file(TYPE_REGISTRY_JSON)
     substrate = SubstrateInterface(
         url="wss://service.eternitylab.cn",
@@ -48,7 +33,8 @@ def model_list():
     return return_res
 
 
-def search_node(id_or_hash):
+def DispSigMoudle_DispatchSig(id_or_hash):
+    # search node
     custom_type_registry = load_type_registry_file(TYPE_REGISTRY_JSON)
     substrate = SubstrateInterface(
         url="wss://service.eternitylab.cn",
@@ -85,9 +71,8 @@ def add_node(port):
     '''
     #矿工通过add_node来启动节点
 
-    #
 
-def list_node():
+def QuanStakeMoudle_Nodes():
     custom_type_registry = load_type_registry_file(TYPE_REGISTRY_JSON)
     substrate = SubstrateInterface(
         url="wss://service.eternitylab.cn",
@@ -110,3 +95,43 @@ def list_node():
         res["ipport"] = nodemsg_dict["ipport"]
         return_res.append(res)
     return return_res
+
+
+def DispSigMoudle_transfer(account, ipfshash):
+    # checkcode = check_code(ipfshash)
+    # if checkcode == False:
+    #     raise ValueError("Failed to send: {}".format("This [ipfshash] is illegal! Please enter the correct [ipfshash]."))
+    #     # return jsonify({"result":"",
+    #     #                 "code":"404"}), 404
+
+    substrate = SubstrateInterface(
+        url="wss://service.eternitylab.cn",
+        ss58_format = 42,
+        type_registry_preset='default'
+    )
+    account_name = "//"+account
+    keypair = Keypair.create_from_uri(account_name)
+    call = substrate.compose_call(
+        call_module='DispSigMoudle',
+        call_function='transfer',
+        call_params={
+            'ipfshash':ipfshash
+        }
+    )
+    extrinsic = substrate.create_signed_extrinsic(call=call, keypair=keypair)
+    try:
+        receipt = substrate.submit_extrinsic(extrinsic, wait_for_finalization=True)
+        # print("Extrinsic '{}' sent and included in block '{}'".format(receipt.extrinsic_hash, receipt.block_hash))
+        block_number = substrate.get_block_number(receipt.block_hash)
+        return {
+            "extrinsic_hash": receipt.extrinsic_hash,
+            "block_hash": receipt.block_hash,
+            "block_number": block_number
+        }
+
+    except SubstrateRequestException as e:
+        raise ValueError("Failed to send: {}".format(e))
+        # return {
+        #     "result": "Failed to send: {}".format(e),
+        #     "code": "404"
+        # }
